@@ -104,17 +104,21 @@ const Index = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-6 md:mb-8 sticky top-[52px] md:top-[80px] z-40 bg-background/95 backdrop-blur-md py-3 md:py-5 -mx-4 px-4 border-b border-border"
         >
-          {/* Mobile: Single row layout with equal spacing */}
+          {/* Mobile: Single row layout */}
           <div className="flex md:hidden items-center gap-3">
-            <CategoryDropdown
-              categories={menuCategories}
-              activeCategory={activeCategory}
-              onCategoryClick={handleCategoryClick}
-            />
-            <div className="flex-1 min-w-0">
+            <div className="flex-1">
+              <CategoryDropdown
+                categories={menuCategories}
+                activeCategory={activeCategory}
+                onCategoryClick={handleCategoryClick}
+              />
+            </div>
+            <div className="flex-[2]">
               <SearchBar value={searchQuery} onChange={setSearchQuery} />
             </div>
-            <JainToggle enabled={jainOnly} onChange={setJainOnly} />
+            <div className="flex-1">
+              <JainToggle enabled={jainOnly} onChange={setJainOnly} />
+            </div>
           </div>
 
           {/* Desktop: Original layout */}
