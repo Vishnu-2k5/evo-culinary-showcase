@@ -20,7 +20,7 @@ const Header = () => {
             <h1 className="font-serif text-2xl md:text-4xl font-bold gold-text-gradient tracking-wide">
               evo
             </h1>
-            <p className="hidden md:block text-xs md:text-sm text-muted-foreground tracking-[0.3em] uppercase mt-0.5">
+            <p className="text-[10px] md:text-sm text-muted-foreground tracking-[0.2em] md:tracking-[0.3em] uppercase mt-0.5">
               Elevated Vegetarian Options
             </p>
           </motion.div>
