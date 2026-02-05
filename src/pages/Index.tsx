@@ -102,7 +102,7 @@ const Index = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6 md:mb-8 sticky top-[65px] md:top-[80px] z-40 bg-background/95 backdrop-blur-md pt-4 pb-3 md:py-5 -mx-4 px-4 border-b border-border"
+          className="mb-6 md:mb-8 sticky top-[65px] md:top-[110px] z-40 bg-background/95 backdrop-blur-md pt-4 pb-3 md:py-5 -mx-4 px-4 border-b border-border"
         >
           {/* Mobile: Single row layout */}
           <div className="flex md:hidden items-stretch justify-between gap-3 h-12">
@@ -128,7 +128,7 @@ const Index = () => {
 
             {/* Search and filters */}
             <div className="flex flex-row gap-4 items-center">
-              <div className="flex-1">
+              <div className="flex-1 h-12 md:h-14">
                 <SearchBar value={searchQuery} onChange={setSearchQuery} />
               </div>
               <div className="flex items-center gap-3">
