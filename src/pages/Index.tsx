@@ -102,9 +102,23 @@ const Index = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 sticky top-[80px] z-40 bg-background/95 backdrop-blur-md py-5 -mx-4 px-4 border-b border-border"
+          className="mb-6 md:mb-8 sticky top-[52px] md:top-[80px] z-40 bg-background/95 backdrop-blur-md py-3 md:py-5 -mx-4 px-4 border-b border-border"
         >
-          <div className="flex flex-col gap-4">
+          {/* Mobile: Single row layout */}
+          <div className="flex md:hidden items-center gap-2">
+            <CategoryDropdown
+              categories={menuCategories}
+              activeCategory={activeCategory}
+              onCategoryClick={handleCategoryClick}
+            />
+            <div className="flex-1">
+              <SearchBar value={searchQuery} onChange={setSearchQuery} />
+            </div>
+            <JainToggle enabled={jainOnly} onChange={setJainOnly} />
+          </div>
+
+          {/* Desktop: Original layout */}
+          <div className="hidden md:flex flex-col gap-4">
             {/* Category Dropdown */}
             <CategoryDropdown
               categories={menuCategories}
@@ -113,13 +127,13 @@ const Index = () => {
             />
 
             {/* Search and filters */}
-            <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+            <div className="flex flex-row gap-4 items-center">
               <div className="flex-1">
                 <SearchBar value={searchQuery} onChange={setSearchQuery} />
               </div>
               <div className="flex items-center gap-3">
                 <JainToggle enabled={jainOnly} onChange={setJainOnly} />
-                <div className="hidden sm:flex items-center gap-1 p-1 bg-secondary rounded-lg border border-border">
+                <div className="flex items-center gap-1 p-1 bg-secondary rounded-lg border border-border">
                   <button
                     onClick={() => setViewMode("grid")}
                     className={cn(
@@ -146,18 +160,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-
-          {/* Results count */}
-          <motion.p
-            key={totalItems}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-4 text-sm text-muted-foreground"
-          >
-            Showing <span className="text-primary font-medium">{totalItems}</span> dishes
-            {jainOnly && " (Jain options only)"}
-            {searchQuery && ` matching "${searchQuery}"`}
-          </motion.p>
         </motion.div>
 
         {/* Menu content */}

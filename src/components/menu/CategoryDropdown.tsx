@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { MenuCategory } from "@/data/menuData";
 
@@ -42,19 +42,20 @@ const CategoryDropdown = ({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all duration-300",
+          "flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2.5 md:py-3 rounded-xl border-2 transition-all duration-300",
           "bg-card hover:bg-secondary shadow-sm",
           isOpen ? "border-primary" : "border-border hover:border-primary/50"
         )}
       >
         <Menu className="w-5 h-5 text-primary" />
-        <div className="flex items-center gap-2">
+        {/* Show category name only on desktop */}
+        <div className="hidden md:flex items-center gap-2">
           <span className="text-lg">{activeItem?.icon}</span>
           <span className="font-medium text-foreground">{activeItem?.name}</span>
         </div>
         <ChevronDown
           className={cn(
-            "w-4 h-4 text-muted-foreground transition-transform duration-200",
+            "w-4 h-4 text-muted-foreground transition-transform duration-200 hidden md:block",
             isOpen && "rotate-180"
           )}
         />
