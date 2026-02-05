@@ -37,7 +37,7 @@ const CategoryDropdown = ({
   };
 
   return (
-    <div ref={dropdownRef} className="relative z-50">
+    <div ref={dropdownRef} className="relative z-50 h-full">
       {/* Dropdown Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
