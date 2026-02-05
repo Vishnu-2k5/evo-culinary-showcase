@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronDown } from "lucide-react";
+import { X } from "lucide-react";
 
 interface SignatureDish {
     id: number;
@@ -79,23 +79,6 @@ const SignatureHero = () => {
                         </motion.div>
                     ))}
                 </div>
-
-                {/* Mobile-only Jump to Menu button */}
-                <motion.button
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    onClick={() => {
-                        const menuSection = document.getElementById("menu-section");
-                        if (menuSection) {
-                            menuSection.scrollIntoView({ behavior: "smooth" });
-                        }
-                    }}
-                    className="md:hidden flex items-center justify-center gap-2 w-full mt-4 py-3 px-4 bg-primary text-primary-foreground rounded-xl font-medium shadow-md hover:bg-primary/90 transition-colors"
-                >
-                    <span>Jump to Menu</span>
-                    <ChevronDown className="w-4 h-4" />
-                </motion.button>
             </section>
 
             {/* Dish Modal */}
