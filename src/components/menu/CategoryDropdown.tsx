@@ -42,7 +42,7 @@ const CategoryDropdown = ({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2.5 md:py-3 rounded-xl border-2 transition-all duration-300",
+          "h-full flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2.5 md:py-3 rounded-xl border-2 transition-all duration-300",
           "bg-card hover:bg-secondary shadow-sm",
           isOpen ? "border-primary" : "border-border hover:border-primary/50"
         )}

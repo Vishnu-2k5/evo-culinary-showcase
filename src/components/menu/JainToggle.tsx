@@ -11,7 +11,7 @@ const JainToggle = ({ enabled, onChange }: JainToggleProps) => {
     <button
       onClick={() => onChange(!enabled)}
       className={cn(
-        "flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 md:py-2.5 rounded-xl border-2 transition-all duration-300 font-medium text-sm",
+        "h-full flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 md:py-2.5 rounded-xl border-2 transition-all duration-300 font-medium text-sm",
         enabled
           ? "bg-primary border-primary text-primary-foreground"
           : "bg-secondary border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground"
