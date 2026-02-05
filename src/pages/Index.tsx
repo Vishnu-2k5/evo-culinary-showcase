@@ -5,8 +5,8 @@ import { menuCategories, type MenuItem } from "@/data/menuData";
 import Header from "@/components/menu/Header";
 import SearchBar from "@/components/menu/SearchBar";
 import JainToggle from "@/components/menu/JainToggle";
-import CategorySidebar from "@/components/menu/CategorySidebar";
-import CategoryTabs from "@/components/menu/CategoryTabs";
+import CategoryDropdown from "@/components/menu/CategoryDropdown";
+import SignatureHero from "@/components/menu/SignatureHero";
 import MenuSection from "@/components/menu/MenuSection";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +16,7 @@ const Index = () => {
   const [activeCategory, setActiveCategory] = useState(menuCategories[0].id);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [showScrollTop, setShowScrollTop] = useState(false);
-  
+
   const sectionRefs = useRef<Map<string, HTMLElement>>(new Map());
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -42,9 +42,10 @@ const Index = () => {
 
   // Handle scroll to category
   const handleCategoryClick = useCallback((categoryId: string) => {
+    setActiveCategory(categoryId);
     const element = document.getElementById(categoryId);
     if (element) {
-      const offset = window.innerWidth >= 1024 ? 100 : 140;
+      const offset = 160; // Account for header and dropdown
       const top = element.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: "smooth" });
     }
@@ -92,54 +93,60 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
-      {/* Mobile category tabs */}
-      <CategoryTabs
-        categories={menuCategories}
-        activeCategory={activeCategory}
-        onCategoryClick={handleCategoryClick}
-      />
 
       <main className="container mx-auto px-4 py-6 lg:py-8">
-        {/* Search and filters */}
+        {/* Signature Dishes Hero Section */}
+        <SignatureHero />
+
+        {/* Category Dropdown and Search Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-8 sticky top-[80px] z-40 bg-background/95 backdrop-blur-md py-5 -mx-4 px-4 border-b border-border"
         >
-          <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
-            <div className="flex-1">
-              <SearchBar value={searchQuery} onChange={setSearchQuery} />
-            </div>
-            <div className="flex items-center gap-3">
-              <JainToggle enabled={jainOnly} onChange={setJainOnly} />
-              <div className="hidden sm:flex items-center gap-1 p-1 bg-secondary rounded-lg border border-border">
-                <button
-                  onClick={() => setViewMode("grid")}
-                  className={cn(
-                    "p-2 rounded-md transition-colors",
-                    viewMode === "grid"
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  <Grid2X2 className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setViewMode("list")}
-                  className={cn(
-                    "p-2 rounded-md transition-colors",
-                    viewMode === "list"
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  <List className="w-4 h-4" />
-                </button>
+          <div className="flex flex-col gap-4">
+            {/* Category Dropdown */}
+            <CategoryDropdown
+              categories={menuCategories}
+              activeCategory={activeCategory}
+              onCategoryClick={handleCategoryClick}
+            />
+
+            {/* Search and filters */}
+            <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+              <div className="flex-1">
+                <SearchBar value={searchQuery} onChange={setSearchQuery} />
+              </div>
+              <div className="flex items-center gap-3">
+                <JainToggle enabled={jainOnly} onChange={setJainOnly} />
+                <div className="hidden sm:flex items-center gap-1 p-1 bg-secondary rounded-lg border border-border">
+                  <button
+                    onClick={() => setViewMode("grid")}
+                    className={cn(
+                      "p-2 rounded-md transition-colors",
+                      viewMode === "grid"
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    <Grid2X2 className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setViewMode("list")}
+                    className={cn(
+                      "p-2 rounded-md transition-colors",
+                      viewMode === "list"
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    <List className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-          
+
           {/* Results count */}
           <motion.p
             key={totalItems}
@@ -153,45 +160,36 @@ const Index = () => {
           </motion.p>
         </motion.div>
 
-        <div className="flex gap-8">
-          {/* Desktop sidebar */}
-          <CategorySidebar
-            categories={menuCategories}
-            activeCategory={activeCategory}
-            onCategoryClick={handleCategoryClick}
-          />
-
-          {/* Menu content */}
-          <div className="flex-1 min-w-0 space-y-12">
-            <AnimatePresence mode="wait">
-              {filteredCategories.length > 0 ? (
-                filteredCategories.map((category) => (
-                  <MenuSection
-                    key={category.id}
-                    id={category.id}
-                    name={category.name}
-                    icon={category.icon}
-                    items={category.items}
-                    viewMode={viewMode}
-                  />
-                ))
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="text-center py-16"
-                >
-                  <p className="text-2xl font-serif text-muted-foreground mb-2">
-                    No dishes found
-                  </p>
-                  <p className="text-muted-foreground">
-                    Try adjusting your search or filters
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+        {/* Menu content */}
+        <div id="menu-section" className="space-y-12">
+          <AnimatePresence mode="wait">
+            {filteredCategories.length > 0 ? (
+              filteredCategories.map((category) => (
+                <MenuSection
+                  key={category.id}
+                  id={category.id}
+                  name={category.name}
+                  icon={category.icon}
+                  items={category.items}
+                  viewMode={viewMode}
+                />
+              ))
+            ) : (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-center py-16"
+              >
+                <p className="text-2xl font-serif text-muted-foreground mb-2">
+                  No dishes found
+                </p>
+                <p className="text-muted-foreground">
+                  Try adjusting your search or filters
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </main>
 

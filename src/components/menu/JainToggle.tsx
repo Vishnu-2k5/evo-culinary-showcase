@@ -25,9 +25,9 @@ const JainToggle = ({ enabled, onChange }: JainToggleProps) => {
         )}
       >
         <motion.div
-          animate={{ x: enabled ? 20 : 0 }}
+          animate={{ x: enabled ? 21 : 1 }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          className="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-foreground shadow-sm"
+          className="absolute top-0.5 w-4 h-4 rounded-full bg-foreground shadow-sm"
         />
       </div>
       <span className="flex items-center gap-2 text-sm font-medium whitespace-nowrap">
