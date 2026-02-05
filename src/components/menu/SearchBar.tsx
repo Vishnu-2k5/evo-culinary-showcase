@@ -8,14 +8,14 @@ interface SearchBarProps {
 
 const SearchBar = ({ value, onChange }: SearchBarProps) => {
   return (
-    <div className="relative h-full">
-      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+    <div className="w-full h-full flex items-center bg-secondary border border-border rounded-xl focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-all duration-200 px-4 gap-2">
+      <Search className="w-5 h-5 text-muted-foreground shrink-0" />
       <input
         type="text"
         placeholder="Search our menu..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-full pl-12 pr-12 py-2.5 bg-secondary border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200 font-sans"
+        className="flex-1 bg-transparent border-none focus:outline-none h-full w-full text-foreground placeholder:text-muted-foreground font-sans"
       />
       <AnimatePresence>
         {value && (
@@ -24,7 +24,7 @@ const SearchBar = ({ value, onChange }: SearchBarProps) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => onChange("")}
-            className="absolute right-4 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors"
+            className="p-1 text-muted-foreground hover:text-foreground transition-colors shrink-0"
           >
             <X className="w-4 h-4" />
           </motion.button>
