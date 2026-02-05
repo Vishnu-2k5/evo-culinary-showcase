@@ -102,7 +102,7 @@ const Index = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6 md:mb-8 sticky top-[65px] md:top-[110px] z-40 bg-background/95 backdrop-blur-md pt-4 pb-3 md:py-5 -mx-4 px-4 border-b border-border"
+          className="mb-6 md:mb-8 sticky top-[65px] md:top-[104px] z-40 bg-background/95 backdrop-blur-md pt-4 pb-3 md:py-5 -mx-4 px-4 border-b border-border"
         >
           {/* Mobile: Single row layout */}
           <div className="flex md:hidden items-stretch justify-between gap-3 h-12">
@@ -117,46 +117,41 @@ const Index = () => {
             <JainToggle enabled={jainOnly} onChange={setJainOnly} />
           </div>
 
-          {/* Desktop: Original layout */}
-          <div className="hidden md:flex flex-col gap-4">
-            {/* Category Dropdown */}
+          {/* Desktop: Single row layout */}
+          <div className="hidden md:flex flex-row gap-4 items-center h-14">
             <CategoryDropdown
               categories={menuCategories}
               activeCategory={activeCategory}
               onCategoryClick={handleCategoryClick}
             />
-
-            {/* Search and filters */}
-            <div className="flex flex-row gap-4 items-center">
-              <div className="flex-1 h-12 md:h-14">
-                <SearchBar value={searchQuery} onChange={setSearchQuery} />
-              </div>
-              <div className="flex items-center gap-3">
-                <JainToggle enabled={jainOnly} onChange={setJainOnly} />
-                <div className="flex items-center gap-1 p-1 bg-secondary rounded-lg border border-border">
-                  <button
-                    onClick={() => setViewMode("grid")}
-                    className={cn(
-                      "p-2 rounded-md transition-colors",
-                      viewMode === "grid"
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <Grid2X2 className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setViewMode("list")}
-                    className={cn(
-                      "p-2 rounded-md transition-colors",
-                      viewMode === "list"
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <List className="w-4 h-4" />
-                  </button>
-                </div>
+            <div className="flex-1 h-full">
+              <SearchBar value={searchQuery} onChange={setSearchQuery} />
+            </div>
+            <div className="flex items-center gap-3 h-full">
+              <JainToggle enabled={jainOnly} onChange={setJainOnly} />
+              <div className="flex items-center gap-1 p-1 bg-secondary rounded-lg border border-border h-full">
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={cn(
+                    "p-2 rounded-md transition-colors h-full flex items-center justify-center",
+                    viewMode === "grid"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <Grid2X2 className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={cn(
+                    "p-2 rounded-md transition-colors h-full flex items-center justify-center",
+                    viewMode === "list"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <List className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>
